@@ -1,13 +1,18 @@
-import { Client } from "pg";
+import { DataSource } from "typeorm";
+import { Usuario } from "../model/user";
 
-export const postgresConexion = new Client({
+const appDataSource = new DataSource({
+  type: "postgres",
   host: "localhost",
-  user: "postgres",
   port: 4000,
+  username: "postgres",
   password: "",
   database: "",
+  synchronize: false,
+  entities: [Usuario],
+  logging: true,
 });
 
-postgresConexion.connect();
+appDataSource.initialize();
 
-export default postgresConexion;
+export default appDataSource;
